@@ -23,7 +23,7 @@ class Command(RunserverCommand):
                     dest='use_livereload', default=True,
                     help='Tells Django to NOT use Livereload.'),
         make_option('--livereload-port', action='store',
-                    dest='ivereload_port', default='35729',
+                    dest='livereload_port', default='35729',
                     help='Port where Livereload listen.'),
     )
     help = 'Starts a lightweight Web server for development with Livereload.'
@@ -40,12 +40,12 @@ class Command(RunserverCommand):
         """
         style = color_style()
         verbosity = int(options['verbosity'])
-        host = 'localhost:%s' % self.options.livereload_port
+        host = 'localhost:%s' % options['livereload_port']
         try:
             urllib.urlopen('http://%s/changed?files=.' % host)
-            self.message('Livereload request emitted.\n', verbosity)
+            self.message('LiveReload request emitted.\n !!', verbosity)
         except IOError:
-            self.message('> Livereload server unreachable at %s' % host,
+            self.message('> LiveReload server unreachable at %s' % host,
                          verbosity, style.HTTP_BAD_REQUEST)
 
     def get_handler(self, *args, **options):

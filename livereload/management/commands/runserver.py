@@ -1,8 +1,10 @@
 """Runserver command with livereload"""
 import urllib
-
 from optparse import make_option
+
 from django.conf import settings
+from django.core.management.color import color_style
+
 
 if 'django.contrib.staticfiles' in settings.INSTALLED_APPS:
     from django.contrib.staticfiles.management.commands.runserver import \
@@ -26,20 +28,30 @@ class Command(RunserverCommand):
     )
     help = 'Starts a lightweight Web server for development with Livereload.'
 
-    def livereload_request(self):
+    def message(self, message, verbosity=1, style=None):
+        if verbosity:
+            if style:
+                message = style(message)
+            self.stdout.write(message)
+
+    def livereload_request(self, **options):
         """
         Performs the livereload request.
         """
+        style = color_style()
+        verbosity = int(options['verbosity'])
         host = 'localhost:%s' % self.options.livereload_port
         try:
             urllib.urlopen('http://%s/changed?files=.' % host)
+            self.message('Livereload request emitted.\n', verbosity)
         except IOError:
-            pass
+            self.message('> Livereload server unreachable at %s' % host,
+                         verbosity, style.HTTP_BAD_REQUEST)
 
     def get_handler(self, *args, **options):
         """
         Entry point to plug the livereload feature.
         """
         handler = super(Command, self).get_handler(*args, **options)
-        self.livereload_request()
+        self.livereload_request(**options)
         return handler

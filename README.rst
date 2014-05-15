@@ -31,10 +31,11 @@ Installation
 Usage
 -----
 
-If the livereload server provided by `tiny-lr` is launched (via Grunt, Gulp
-or whatever), the ``runserver`` command will do a livereload on your
-browser when the Django development server is ready.
+If the livereload server provided by `tiny-lr` is launched (via `Gulp`_,
+`Grunt`_ or whatever), the ``runserver`` command will do a livereload on
+your browser when the Django development server is ready.
 
 .. _`Livereload`: http://livereload.com/
 .. _`tiny-lr`: https://github.com/mklabs/tiny-lr
 .. _`Gulp`: http://gulpjs.com/
+.. _`Grunt`: http://gruntjs.com/

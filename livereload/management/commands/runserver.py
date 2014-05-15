@@ -13,6 +13,9 @@ else:
 
 
 class Command(RunserverCommand):
+    """
+    Command for running the development server with Livereload.
+    """
     option_list = RunserverCommand.option_list + (
         make_option('--nolivereload', action='store_false',
                     dest='use_livereload', default=True,
@@ -24,6 +27,9 @@ class Command(RunserverCommand):
     help = 'Starts a lightweight Web server for development with Livereload.'
 
     def livereload_request(self):
+        """
+        Performs the livereload request.
+        """
         host = 'localhost:%s' % self.options.livereload_port
         try:
             urllib.urlopen('http://%s/changed?files=.' % host)
@@ -31,6 +37,9 @@ class Command(RunserverCommand):
             pass
 
     def get_handler(self, *args, **options):
+        """
+        Entry point to plug the livereload feature.
+        """
         handler = super(Command, self).get_handler(*args, **options)
         self.livereload_request()
         return handler

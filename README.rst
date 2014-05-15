@@ -26,7 +26,7 @@ Installation
   $ pip install django-livereload
 
 * Then register the ``'livereload'`` application in your ``INSTALLED_APPS``
-  setting.
+  setting, after the ``'django.contrib.staticfiles'`` application if used.
 
 Usage
 -----

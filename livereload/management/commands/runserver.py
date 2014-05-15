@@ -53,5 +53,6 @@ class Command(RunserverCommand):
         Entry point to plug the LiveReload feature.
         """
         handler = super(Command, self).get_handler(*args, **options)
-        self.livereload_request(**options)
+        if options['use_livereload']:
+            self.livereload_request(**options)
         return handler

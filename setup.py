@@ -8,10 +8,10 @@ setup(
     name='django-livereload',
     version=livereload.__version__,
 
-    description='Twitter plugin for django-blog-zinnia',
+    description='LiveReload with the Django development server',
     long_description=open('README.rst').read(),
 
-    keywords='django, zinnia, twitter',
+    keywords='django, server, runserver, livereload',
 
     author=livereload.__author__,
     author_email=livereload.__email__,

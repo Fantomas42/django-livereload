@@ -3,18 +3,18 @@ Django-livereload
 =================
 
 Application performing a `LiveReload`_ with `tiny-lr`_ once the development
-server has started.
+server is ready.
 
 Why this project ?
 ------------------
 
-Recently I started to use `Gulp`_ and `LiveReload`_ to automatize some
-tasks. Once an HTML, CSS or JS has changed, a livereload is performed in
-the browser to reflect the changes, and I was pretty happy.
+I recently started using `Gulp`_ and `LiveReload`_ to automatize some
+tasks. Everytime an HTML, CSS or JS file changes, a livereload is performed in
+the browser to reflect those changes, and I was pretty happy with that.
 
 But I found one limitation, I cannot perform a livereload of the current
-page when I edit Python files, because the development server provided by
-Django is not necessary ready when the livereload request is emitted.
+page when editing Python files because the development server provided by
+Django is not necessary ready as soon as the livereload request is emitted.
 
 That's why I created this application.
 
@@ -33,7 +33,7 @@ Usage
 
 If the livereload server provided by `tiny-lr` is launched (via `Gulp`_,
 `Grunt`_ or whatever), the ``runserver`` command will do a livereload on
-your browser when the Django development server is ready.
+your browser whenever the Django development server is ready.
 
 .. _`LiveReload`: http://livereload.com/
 .. _`tiny-lr`: https://github.com/mklabs/tiny-lr

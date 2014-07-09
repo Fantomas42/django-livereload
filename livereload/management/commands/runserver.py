@@ -42,7 +42,10 @@ class Command(RunserverCommand):
         verbosity = int(options['verbosity'])
         host = 'localhost:%s' % options['livereload_port']
         try:
-            urllib.request.urlopen('http://%s/changed?files=.' % host)
+            try:
+                urllib.urlopen('http://%s/changed?files=.' % host)
+            except AttributeError:
+                urllib.request.urlopen('http://%s/changed?files=.' % host)
             self.message('LiveReload request emitted.\n',
                          verbosity, style.HTTP_INFO)
         except IOError:

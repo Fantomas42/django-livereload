@@ -1,6 +1,9 @@
 """Runserver command with livereload"""
-import urllib
 from optparse import make_option
+try:
+    from urllib.request import urlopen
+except ImportError:  # Python 2 fall back
+    from urllib2 import urlopen
 
 from django.conf import settings
 from django.core.management.color import color_style
@@ -42,7 +45,7 @@ class Command(RunserverCommand):
         verbosity = int(options['verbosity'])
         host = 'localhost:%s' % options['livereload_port']
         try:
-            urllib.urlopen('http://%s/changed?files=.' % host)
+            urlopen('http://%s/changed?files=.' % host)
             self.message('LiveReload request emitted.\n',
                          verbosity, style.HTTP_INFO)
         except IOError:

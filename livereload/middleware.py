@@ -12,9 +12,9 @@ class LiveReloadScript(object):
     """
 
     def process_response(self, request, response):
-        if (not response.status_code == 200 or
-            not '<html' in response.content):
-             return response
+
+        if response.status_code != 200 or 'text/html' not in response.get('content-type', ''):
+            return response
 
         soup = BeautifulSoup(smart_str(response.content),
                              'html.parser')
@@ -23,4 +23,5 @@ class LiveReloadScript(object):
         soup.head.append(script)
 
         response.content = str(soup)
+
         return response

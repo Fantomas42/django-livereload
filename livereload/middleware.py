@@ -12,15 +12,20 @@ class LiveReloadScript(object):
     """
 
     def process_response(self, request, response):
-        if (not response.status_code == 200 or
-            not '<html' in response.content):
-             return response
+        if response.status_code != 200:
+            return response
 
-        soup = BeautifulSoup(smart_str(response.content),
-                             'html.parser')
-        script = soup.new_tag('script',
-                              src='http://localhost:35729/livereload.js')
+        content_type = response.get(
+            'Content-Type', '').split(';')[0].strip().lower()
+        if content_type not in ['text/html', 'application/xhtml+xml']:
+            return response
+
+        soup = BeautifulSoup(
+            smart_str(response.content), 'html.parser')
+        script = soup.new_tag(
+            'script', src='http://localhost:35729/livereload.js')
         soup.head.append(script)
 
         response.content = str(soup)
+
         return response

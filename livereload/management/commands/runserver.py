@@ -21,14 +21,25 @@ class Command(RunserverCommand):
     """
     Command for running the development server with LiveReload.
     """
-    option_list = RunserverCommand.option_list + (
-        make_option('--nolivereload', action='store_false',
-                    dest='use_livereload', default=True,
-                    help='Tells Django to NOT use LiveReload.'),
-        make_option('--livereload-port', action='store',
-                    dest='livereload_port', default='35729',
-                    help='Port where LiveReload listen.'),
-    )
+    if callable(getattr(RunserverCommand, 'add_arguments', None)):
+        def add_arguments(self, parser):
+            super(Command, self).add_arguments(parser)
+            parser.add_argument('--nolivereload', action='store_false',
+                                dest='use_livereload', default=True,
+                                help='Tells Django to NOT use LiveReload.')
+            parser.add_argument('--livereload-port', action='store',
+                                dest='livereload_port', default='35729',
+                                help='Port where LiveReload listen.')
+    else:
+        option_list = RunserverCommand.option_list + (
+                make_option('--nolivereload', action='store_false',
+                            dest='use_livereload', default=True,
+                            help='Tells Django to NOT use LiveReload.'),
+                make_option('--livereload-port', action='store',
+                            dest='livereload_port', default='35729',
+                            help='Port where LiveReload listen.'),
+        )
+
     help = 'Starts a lightweight Web server for development with LiveReload.'
 
     def message(self, message, verbosity=1, style=None):

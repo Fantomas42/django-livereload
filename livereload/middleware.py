@@ -22,6 +22,10 @@ class LiveReloadScript(object):
 
         soup = BeautifulSoup(
             smart_str(response.content), 'html.parser')
+
+        if not getattr(soup, 'head', None):
+            return response
+
         script = soup.new_tag(
             'script', src='http://localhost:35729/livereload.js')
         soup.head.append(script)

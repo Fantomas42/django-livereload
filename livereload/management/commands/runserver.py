@@ -43,15 +43,15 @@ class Command(RunserverCommand):
 
     else:
         option_list = RunserverCommand.option_list + (
-                make_option('--nolivereload', action='store_false',
-                            dest='use_livereload', default=True,
-                            help='Tells Django to NOT use LiveReload.'),
-                make_option('--livereload-port', action='store',
-                            dest='livereload_port', default=self.default_port,
-                            help='Port where LiveReload listen.'),
-                make_option('--livereload-host', action='store',
-                            dest='livereload_host', default=self.default_host,
-                            help='Host where LiveReload is running.'),
+            make_option('--nolivereload', action='store_false',
+                        dest='use_livereload', default=True,
+                        help='Tells Django to NOT use LiveReload.'),
+            make_option('--livereload-port', action='store',
+                        dest='livereload_port', default=self.default_port,
+                        help='Port where LiveReload listen.'),
+            make_option('--livereload-host', action='store',
+                        dest='livereload_host', default=self.default_host,
+                        help='Host where LiveReload is running.'),
         )
 
     help = 'Starts a lightweight Web server for development with LiveReload.'
@@ -69,14 +69,14 @@ class Command(RunserverCommand):
         style = color_style()
         verbosity = int(options['verbosity'])
         host = '%s:%s' % (options['livereload_host'],
-                                    options['livereload_port'])
+                          options['livereload_port'])
         try:
             urlopen('http://%s/changed?files=.' % host)
             self.message('LiveReload request emitted.\n',
                          verbosity, style.HTTP_INFO)
         except IOError as e:
             self.stdout.write(
-                    self.style.WARNING('LiveReload exception: %s' % e)
+                self.style.WARNING('LiveReload exception: %s' % e)
             )
             pass
 

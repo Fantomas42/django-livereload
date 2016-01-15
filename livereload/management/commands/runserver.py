@@ -47,10 +47,10 @@ class Command(RunserverCommand):
                         dest='use_livereload', default=True,
                         help='Tells Django to NOT use LiveReload.'),
             make_option('--livereload-port', action='store',
-                        dest='livereload_port', default=self.default_port,
+                        dest='livereload_port', default=default_port,
                         help='Port where LiveReload listen.'),
             make_option('--livereload-host', action='store',
-                        dest='livereload_host', default=self.default_host,
+                        dest='livereload_host', default=default_host,
                         help='Host where LiveReload is running.'),
         )
 

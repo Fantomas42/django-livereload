@@ -4,8 +4,8 @@ Middleware for injecting the live-reload script.
 from bs4 import BeautifulSoup
 
 from django.conf import settings
-from django.utils.encoding import smart_str
 from django.utils.deprecation import MiddlewareMixin
+from django.utils.encoding import smart_str
 
 try:
     import html5lib  # noqa

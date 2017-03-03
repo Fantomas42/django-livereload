@@ -4,6 +4,7 @@ Middleware for injecting the live-reload script.
 from bs4 import BeautifulSoup
 
 from django.conf import settings
+from django.utils.deprecation import MiddlewareMixin
 from django.utils.encoding import smart_str
 
 try:
@@ -20,7 +21,7 @@ if IS_HTML5:
     PARSER = 'html5lib'
 
 
-class LiveReloadScript(object):
+class LiveReloadScript(MiddlewareMixin):
     """
     Inject the live-reload script into your webpages.
     """

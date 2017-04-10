@@ -22,9 +22,9 @@ class Command(RunserverCommand):
     Command for running the development server with LiveReload.
     """
     # Allow a settings option to set the default port
-    default_port = getattr(settings, 'LIVERELOAD_PORT', '35729')
+    livereload_default_port = getattr(settings, 'LIVERELOAD_PORT', '35729')
     # Allow a settings option to set the default host
-    default_host = getattr(settings, 'LIVERELOAD_HOST', 'localhost')
+    livereload_default_host = getattr(settings, 'LIVERELOAD_HOST', 'localhost')
 
     if callable(getattr(RunserverCommand, 'add_arguments', None)):
         def add_arguments(self, parser):
@@ -34,11 +34,11 @@ class Command(RunserverCommand):
                                 help='Tells Django to NOT use LiveReload.')
             parser.add_argument('--livereload-port', action='store',
                                 dest='livereload_port',
-                                default=self.default_port,
+                                default=self.livereload_default_port,
                                 help='Port where LiveReload listen.')
             parser.add_argument('--livereload-host', action='store',
                                 dest='livereload_host',
-                                default=self.default_host,
+                                default=self.livereload_default_host,
                                 help='Host where LiveReload is running.')
 
     else:
@@ -47,10 +47,12 @@ class Command(RunserverCommand):
                         dest='use_livereload', default=True,
                         help='Tells Django to NOT use LiveReload.'),
             make_option('--livereload-port', action='store',
-                        dest='livereload_port', default=default_port,
+                        dest='livereload_port',
+                        default=livereload_default_port,
                         help='Port where LiveReload listen.'),
             make_option('--livereload-host', action='store',
-                        dest='livereload_host', default=default_host,
+                        dest='livereload_host',
+                        default=livereload_default_host,
                         help='Host where LiveReload is running.'),
         )
 

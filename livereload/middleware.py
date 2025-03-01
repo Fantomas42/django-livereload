@@ -41,6 +41,9 @@ class LiveReloadScript(MiddlewareMixin):
         if not getattr(soup, 'head', None):
             return response
 
+        if soup.head.find('script', src='http://localhost:35729/livereload.js'):
+            return response
+
         script = soup.new_tag(
             'script', src='http://localhost:35729/livereload.js')
         soup.head.append(script)
